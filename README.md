@@ -1,5 +1,3 @@
-# java27-team1-p1
-
 ## Traccia
 
  - Definire un programma che sfrutti metodi e funzioni per ricreare una calcolatrice di base. Il programma dovrà avere:
