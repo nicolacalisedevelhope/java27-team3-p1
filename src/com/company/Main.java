@@ -16,7 +16,7 @@ public class Main {
                     //somma();
                     break;
                 case 2:
-                    //sottrazione();
+                    sottrazione(scanner);
                     break;
                 case 3:
                     //moltiplicazione();
@@ -45,8 +45,29 @@ public class Main {
     }
 
     //metodo sottrazione
-    public void sottrazione(){
-
+    public static void sottrazione(Scanner scanner){
+        System.out.println("Con quanti numeri vuoi fare l'operazione?");
+        int qntNum = scanner.nextInt();
+        double[] arraySot = new double[qntNum];
+        double sot = 0;
+        for (int i = 0; i < qntNum ; i++) {
+            System.out.println("Inserisci un numero:");
+            double numInserito = scanner.nextInt();
+            arraySot[i] = numInserito;
+            if (i==0){
+                sot = numInserito;
+            }else{
+                sot -= numInserito;
+            }
+        }
+        for (int i = 0; i < qntNum; i++) {
+            if (i<qntNum-1) {
+                System.out.print(arraySot[i] + " - ");
+            }else {
+                System.out.print(arraySot[i] + " = "+sot);
+            }
+        }
+        System.out.println("");
     }
 
     //metodo moltiplicazione
