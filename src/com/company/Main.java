@@ -25,14 +25,21 @@ public class Main {
                     //divisione();
                     break;
                 case 5:
-                    //potenza();
+                    System.out.println("Inserisci numero base");
+                    float base = scanner.nextFloat();
+                    System.out.println("Inserisci esponente");
+                    int esponente = scanner.nextInt();
+                    potenza(base,esponente);
                     break;
                 case 6:
-                    //pariDispari();
+                    System.out.println("Inserisci il numero da controllare");
+                    int numero = scanner.nextInt();
+                    pariDispari(numero);
                     break;
                 case 7:
                     a=false;
-                    System.out.println("Hai spento la calcolatrice");
+                    System.out.println("Chiusura calcolatrice");
+                    break;
                 default:
                     System.out.println("Comando non conosciuto");
             }
@@ -40,33 +47,41 @@ public class Main {
     }
 
     //metodo somma
-    public void somma(){
+    public static void somma(){
 
     }
 
     //metodo sottrazione
-    public void sottrazione(){
+    public static void sottrazione(){
 
     }
 
     //metodo moltiplicazione
-    public void moltiplicazione(){
+    public static void moltiplicazione(){
 
     }
 
     //metodo divisione
-    public void divisione(){
+    public static void divisione(){
 
     }
 
     //metodo potenza
-    public void potenza(){
-
+    public static void potenza(float base, int esponente){
+        float risultato = 1;
+        for(int i = 0; i < esponente; i++){
+            risultato = base * risultato;
+        }
+        System.out.println(base + " elevato " + esponente + " = " + risultato);
     }
 
     //metodo controllo pari o dispari
-    public void pariDispari(){
-
+    public static void pariDispari(int numero){
+        if((numero % 2) == 0){
+            System.out.println("Il numero è pari");
+        } else {
+            System.out.println("Il numero è dispari");
+        }
     }
 
 
