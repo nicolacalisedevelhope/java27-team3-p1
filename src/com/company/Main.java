@@ -16,7 +16,27 @@ public class Main {
                     //somma();
                     break;
                 case 2:
-                    sottrazione(scanner);
+                    System.out.println("Con quanti numeri vuoi fare l'operazione?");
+                    int qntNum = scanner.nextInt();
+                    double[] arraySot = new double[qntNum];
+                    double sotTotal = 0;
+
+                    for (int i = 0; i < qntNum ; i++) {
+                        System.out.println("Inserisci un numero:");
+                        double num = scanner.nextDouble();
+                        sotTotal = sottrazione(num,sotTotal,i);
+                        arraySot[i] = num;
+                    }
+
+                    for (int i = 0; i < qntNum; i++) {
+                        if (i<qntNum-1) {
+                            System.out.print(arraySot[i] + " - ");
+                        }else {
+                            System.out.print(arraySot[i] + " = "+sotTotal);
+                        }
+                    }
+                    System.out.println("");
+
                     break;
                 case 3:
                     //moltiplicazione();
@@ -37,6 +57,8 @@ public class Main {
                     System.out.println("Comando non conosciuto");
             }
         }while(a);
+
+        scanner.close();
     }
 
     //metodo somma
@@ -45,29 +67,12 @@ public class Main {
     }
 
     //metodo sottrazione
-    public static void sottrazione(Scanner scanner){
-        System.out.println("Con quanti numeri vuoi fare l'operazione?");
-        int qntNum = scanner.nextInt();
-        double[] arraySot = new double[qntNum];
-        double sot = 0;
-        for (int i = 0; i < qntNum ; i++) {
-            System.out.println("Inserisci un numero:");
-            double numInserito = scanner.nextInt();
-            arraySot[i] = numInserito;
-            if (i==0){
-                sot = numInserito;
+    public static double sottrazione(double num, double sotTotal, int position){
+            if (position==0){
+                return sotTotal = num;
             }else{
-                sot -= numInserito;
+                return sotTotal -= num;
             }
-        }
-        for (int i = 0; i < qntNum; i++) {
-            if (i<qntNum-1) {
-                System.out.print(arraySot[i] + " - ");
-            }else {
-                System.out.print(arraySot[i] + " = "+sot);
-            }
-        }
-        System.out.println("");
     }
 
     //metodo moltiplicazione
