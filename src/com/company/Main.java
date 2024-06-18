@@ -1,120 +1,143 @@
 package com.company;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        boolean a = true;
-        do {
-            System.out.println("1 somma, 2 sottrazione, 3 moltiplicazione, 4 divisione, 5 potenza, 6 controllo pari o dispari, 7 esci");
-            int scelta = scanner.nextInt();
+        System.out.println("----------------------------------------------------------------MENU----------------------------------------------------------------");
+        System.out.println("+ => somma | - => sottrazione | * => moltiplicazione | / => divisione | ^ => potenza | solo numero => pari o dispari | esci => per uscire");
+        System.out.println("Per utilizare la potenza, serve solo 2 numeri, il primo è la base e il secondo la potenza");
+        System.out.println("Tutte le altre operazioni possono essere eseguite con più di un numero, basta inserire il numero e l'operazione senza spazi!");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
-            switch (scelta) {
-                case 1:
-                    //somma();
-                    break;
+        //Variabile per uscire se c'è un errore nell'operazione
+        boolean uscire = false;
 
-                case 2:
-                    System.out.println("Con quanti numeri vuoi fare l'operazione?");
-                    int qntNum = scanner.nextInt();
-                    double[] arraySot = new double[qntNum];
-                    double sotTotal = 0;
+        while (!uscire) {
+            //Inserendo l'operazione come una stringa per accettare numeri e caratteri
+            System.out.println("Inserisci l'operazione");
+            String calcolo = scanner.nextLine();
 
-                    for (int i = 0; i < qntNum ; i++) {
-                        System.out.println("Inserisci un numero:");
-                        double num = scanner.nextDouble();
-                        sotTotal = sottrazione(num,sotTotal,i);
-                        arraySot[i] = num;
-                    }
+            //Creazione di una lista in modo che non ci sia limite di inserimento, divisa tra inserimento di caratteri operazione o numeri inseriti
+            List<String> arrayOperazione = new ArrayList<>();
+            List<Double> arrayNumeri = new ArrayList<>();
 
-                    for (int i = 0; i < qntNum; i++) {
-                        if (i<qntNum-1) {
-                            System.out.print(arraySot[i] + " - ");
-                        }else {
-                            System.out.print(arraySot[i] + " = "+sotTotal);
-                        }
-                    }
-                    System.out.println("");
+            if (Objects.equals(calcolo.toUpperCase(), "ESCI") || Objects.equals(calcolo.toUpperCase(), "exit")) {
+                uscire = true;
+            } else {
+                //Variabili di controllo logico per separare ciascun carattere
+                boolean charOperazione = false;
+                int ultimaPosition = 0;
+                int controlo = 0;
 
-                    break;
-
-                case 3:
-                    //moltiplicazione();
-                    break;
-
-                case 4:
-                    int b = 1;
-                    double dividendo = 0;
-                    while (b >= 1) {
-                        if (b == 1) {
-                            //Prendi dividendo solo nella prima volta
-                            System.out.println("Inserisci il numero dividendo");
-                            dividendo = scanner.nextDouble();
-                        }
-
-                        System.out.println("Inserisci il numero diviso");
-                        double diviso = scanner.nextDouble();
-
-                        //ritorno[0] = quoziente | ritorno[1] = resto | ritorno[2] = dividendo 0
-                        double[] ritorno = divisione(dividendo, diviso);
-                        if (ritorno[2] != 1) {
-                            System.out.println(dividendo + " / " + diviso + " = " + ritorno[0] + " con resto: " + ritorno[1]);
-                            dividendo = ritorno[0];
-                        }
-
-                        //Controlla se è la prima volta in modo che il messaggio di opzione sconosciuta non venga visualizzato
-                        int v = 0;
-                        int option;
-                        do {
-                            if (v == 0) {
-                                System.out.println("Opzione sconosciuta");
-                            }
-                            System.out.println("Ancora vuoi fare divisione sul quoziente?");
-                            System.out.println("Quoziente in memoria: " + dividendo);
-                            System.out.println("0 continue, 1 prossima operazione");
-                            option = scanner.nextInt();
-                            v++;
-                        } while (!((option == 0) || (option == 1)));
-
-                        if (option == 1) {
-                            b = 0;
+                //"For" attraversa l'intera stringa in modo che possa eseguire la logica di ottenere la posizione dell'ultimo carattere dell'operazione se il numero ha più di due passaggi di loop
+                for (int i = 0; i < calcolo.length(); i++) {
+                    if (!((calcolo.charAt(i) == '0') || (calcolo.charAt(i) == '1') || (calcolo.charAt(i) == '2') || (calcolo.charAt(i) == '3') || (calcolo.charAt(i) == '4') || (calcolo.charAt(i) == '5') || (calcolo.charAt(i) == '6') || (calcolo.charAt(i) == '7') || (calcolo.charAt(i) == '8') || (calcolo.charAt(i) == '9'))) {
+                        if ((ultimaPosition == i - 1 && i > 1) || i == 0) {
+                            System.out.println("Sintaxe incorreta!");
+                            arrayNumeri.clear();
+                            arrayOperazione.clear();
+                            break;
                         } else {
-                            b++;
+                            arrayOperazione.add(String.valueOf(calcolo.charAt(i)));
+                            if (!(ultimaPosition == i - 1) || i == 1) {
+                                charOperazione = true;
+                            }
+                            ultimaPosition = i;
+
                         }
                     }
-                    break;
 
-                case 5:
-                    System.out.println("Inserisci numero base");
-                    float base = scanner.nextFloat();
-                    System.out.println("Inserisci esponente");
-                    int esponente = scanner.nextInt();
-                    potenza(base, esponente);
-                    break;
+                    if (calcolo.length() - 1 == i) {
+                        charOperazione = true;
+                        ultimaPosition = i + 1;
+                    }
 
-                case 6:
-                    System.out.println("Inserisci il numero da controllare");
-                    int numero = scanner.nextInt();
-                    pariDispari(numero);
-                    break;
-
-                case 7:
-                    a = false;
-                    System.out.println("Chiusura calcolatrice");
-                    break;
-
-                default:
-                    System.out.println("Comando non conosciuto");
-                    break;
-
+                    if (charOperazione) {
+                        arrayNumeri.add(Double.valueOf(calcolo.substring(controlo, ultimaPosition)));
+                        controlo = i + 1;
+                        charOperazione = false;
+                    }
+                }
             }
 
-        }while(a);
-      
+            //Conteggio di controllo per arrayNumeri
+            int cont = 0;
+
+            //Variabile di archiviazione per l'ultima operazione eseguita
+            double ultimo = 0;
+            if (!(arrayNumeri.isEmpty()) && !(arrayOperazione.isEmpty())) {
+                for (int i = 0; i < arrayOperazione.size(); i++) {
+                    boolean errore = false;
+                    switch (arrayOperazione.get(i)) {
+                        case "+":
+                            //somma();
+                            break;
+
+                        case "-":
+                            double sotTotal;
+
+                            ultimo = arrayNumeri.get(cont);
+                            sotTotal = sottrazione(ultimo, arrayNumeri.get(cont + 1));
+
+
+                            System.out.println("La sottrazione tra " + ultimo + " e " + arrayNumeri.get(cont + 1) + " risulta: " + sotTotal);
+                            ultimo = sotTotal;
+                            break;
+
+                        case "*":
+                            //moltiplicazione();
+                            break;
+
+                        case "/":
+                            double[] ritorno;
+
+                            //ritorno[0] = quoziente | ritorno[1] = resto | ritorno[2] = dividendo 0
+                            if (i == 0) {
+                                ultimo = arrayNumeri.get(cont);
+                            }
+                            ritorno = divisione(ultimo, arrayNumeri.get(cont + 1));
+
+                            if (ritorno[2] == 1) {
+                                errore = true;
+                                System.out.println("Non è possibile dividere un numero per 0!");
+                                break;
+                            }
+
+                            System.out.println("la divisione tra " + ultimo + " e " + arrayNumeri.get(cont + 1) + " risulta il quoziente: " + ritorno[0] + " Resto: " + ritorno[1]);
+                            ultimo = ritorno[0];
+                            break;
+
+                        case "^":
+                            System.out.println("Inserisci numero base");
+                            float base = scanner.nextFloat();
+                            System.out.println("Inserisci esponente");
+                            int esponente = scanner.nextInt();
+                            potenza(base, esponente);
+                            break;
+
+                        default:
+                            System.out.println("Operazione non conosciuta");
+                            errore = true;
+                            break;
+
+                    }
+                    cont++;
+                    if (errore) {
+                        break;
+                    }
+                }
+            } else if (!(arrayNumeri.isEmpty())) {
+                //pari e dispare
+                pariDispari(arrayNumeri.getFirst());
+                System.out.println("Aqui!");
+            }
+        }
         scanner.close();
     }
+
 
     //metodo somma
     public static void somma() {
@@ -122,12 +145,8 @@ public class Main {
     }
 
     //metodo sottrazione
-    public static double sottrazione(double num, double sotTotal, int position){
-            if (position==0){
-                return sotTotal = num;
-            }else{
-                return sotTotal -= num;
-            }
+    public static double sottrazione(double num, double num2) {
+        return num - num2;
     }
 
     //metodo moltiplicazione
@@ -137,16 +156,19 @@ public class Main {
 
     //metodo divisione
     public static double[] divisione(double dividendo, double diviso) {
+        //Matrice di 3 valori restituiti
         double[] ritorno = new double[3];
+
+        //Caso il numero diviso sia 0, deve informare il main
         if (diviso == 0) {
             System.out.println("Impossibile dividere per 0!");
             ritorno[2] = 1;
-            return ritorno;
         } else {
             ritorno[0] = dividendo / diviso;
             ritorno[1] = dividendo % diviso;
-            return ritorno;
         }
+
+        return ritorno;
     }
 
     //metodo potenza
@@ -159,11 +181,11 @@ public class Main {
     }
 
     //metodo controllo pari o dispari
-    public static void pariDispari(int numero) {
+    public static void pariDispari(double numero) {
         if ((numero % 2) == 0) {
-            System.out.println("Il numero è pari");
+            System.out.println("Il numero inserito è pari");
         } else {
-            System.out.println("Il numero è dispari");
+            System.out.println("Il numero inserito è dispari");
         }
     }
 }
