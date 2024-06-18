@@ -150,12 +150,8 @@ public class Main {
     }
 
     //metodo potenza
-    public static void potenza(float base, int esponente) {
-        float risultato = 1;
-        for (int i = 0; i < esponente; i++) {
-            risultato = base * risultato;
-        }
-        System.out.println(base + " elevato " + esponente + " = " + risultato);
+    public static void potenza(float base, int esponente){
+        System.out.println(base + " elevato " + esponente + " = " + Math.pow(base,esponente));
     }
 
     //metodo controllo pari o dispari
