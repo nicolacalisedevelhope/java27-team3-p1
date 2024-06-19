@@ -13,13 +13,21 @@ public class Main {
 
             switch (scelta){
                 case 1:
-                    //somma();
+                    System.out.print("Inserisci addendo: ");
+                    float primoAddendo = scanner.nextFloat();
+                    System.out.print("Inserisci addendo: ");
+                    float secondoAddendo = scanner.nextFloat();
+                    somma(primoAddendo, secondoAddendo);
                     break;
                 case 2:
                     //sottrazione();
                     break;
                 case 3:
-                    //moltiplicazione();
+                    System.out.print("Inserisci fattore: ");
+                    float primoFattore = scanner.nextFloat();
+                    System.out.print("Inserisci fattore: ");
+                    float secondoFattore = scanner.nextFloat();
+                    moltiplicazione(primoFattore, secondoFattore);
                     break;
                 case 4:
                     //divisione();
@@ -47,8 +55,8 @@ public class Main {
     }
 
     //metodo somma
-    public static void somma(){
-
+    public static void somma(float primoAddendo, float secondoAddendo){
+        System.out.println(primoAddendo + secondoAddendo);
     }
 
     //metodo sottrazione
@@ -57,8 +65,8 @@ public class Main {
     }
 
     //metodo moltiplicazione
-    public static void moltiplicazione(){
-
+    public static void moltiplicazione(float primoFattore, float secondoFattore){
+        System.out.println(primoFattore * secondoFattore);
     }
 
     //metodo divisione
