@@ -73,13 +73,20 @@ public class Main {
                     boolean errore = false;
                     switch (arrayOperazione.get(i)) {
                         case "+":
-                            //somma();
+                            if(i==0) {
+                                ultimo = arrayNumeri.get(cont);
+                            }
+                            double risSomma= somma(ultimo, arrayNumeri.get(cont + 1));
+                            System.out.println("L'addizione tra " + ultimo + " e " + arrayNumeri.get(cont + 1) + " risulta: " + risSomma);
+                            ultimo = risSomma;
                             break;
 
                         case "-":
                             double sotTotal;
+                            if(i==0){
+                                ultimo = arrayNumeri.get(cont);
+                            }
 
-                            ultimo = arrayNumeri.get(cont);
                             sotTotal = sottrazione(ultimo, arrayNumeri.get(cont + 1));
 
 
@@ -88,7 +95,12 @@ public class Main {
                             break;
 
                         case "*":
-                            //moltiplicazione();
+                            if(i==0) {
+                                ultimo = arrayNumeri.get(cont);
+                            }
+                            double risMolt= moltiplicazione(ultimo, arrayNumeri.get(cont + 1));
+                            System.out.println("La moltiplicazione tra " + ultimo + " e " + arrayNumeri.get(cont + 1) + " risulta: " + risMolt);
+                            ultimo = risMolt;
                             break;
 
                         case "/":
@@ -132,7 +144,6 @@ public class Main {
             } else if (!(arrayNumeri.isEmpty())) {
                 //pari e dispare
                 pariDispari(arrayNumeri.getFirst());
-                System.out.println("Aqui!");
             }
         }
         scanner.close();
@@ -140,8 +151,8 @@ public class Main {
 
 
     //metodo somma
-    public static void somma() {
-
+    public static double somma(double primoAddendo, double secondoAddendo) {
+        return primoAddendo + secondoAddendo;
     }
 
     //metodo sottrazione
@@ -150,8 +161,8 @@ public class Main {
     }
 
     //metodo moltiplicazione
-    public static void moltiplicazione() {
-
+        public static double moltiplicazione(double primoFattore, double secondoFattore){
+           return primoFattore * secondoFattore;
     }
 
     //metodo divisione
