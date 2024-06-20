@@ -10,6 +10,7 @@ public class Main {
         System.out.println("+ => somma | - => sottrazione | * => moltiplicazione | / => divisione | ^ => potenza | solo numero => pari o dispari | esci => per uscire");
         System.out.println("Per utilizare la potenza, serve solo 2 numeri, il primo è la base e il secondo la potenza");
         System.out.println("Tutte le altre operazioni possono essere eseguite con più di un numero, basta inserire il numero e l'operazione senza spazi!");
+        System.out.println("La potenza va fatta da sola atrimenti appare sintassi incorretta");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
         //Variabile per uscire se c'è un errore nell'operazione
@@ -123,24 +124,31 @@ public class Main {
                             break;
 
                         case "^":
-                            System.out.println("Inserisci numero base");
-                            float base = scanner.nextFloat();
-                            System.out.println("Inserisci esponente");
-                            int esponente = scanner.nextInt();
-                            potenza(base, esponente);
+                            double risultato;
+
+                            if(i == 0){
+                                ultimo = arrayNumeri.get(cont);
+                                risultato = potenza(ultimo, arrayNumeri.get(cont+1));
+                                ultimo = risultato;
+                                System.out.println("il risultato della potenza tra: " + ultimo + " e " + arrayNumeri.get(cont + 1) + " = " + risultato);
+                            } else {
+                                errore = true;
+                            }
                             break;
 
                         default:
-                            System.out.println("Operazione non conosciuta");
+                            System.out.println("Operazione non riconosciuta");
                             errore = true;
                             break;
 
                     }
                     cont++;
                     if (errore) {
+                        System.out.println("Sintassi incorretta");
                         break;
                     }
                 }
+                System.out.println("Il risultato totale dell'operazione è: " + ultimo);
             } else if (!(arrayNumeri.isEmpty())) {
                 //pari e dispare
                 pariDispari(arrayNumeri.getFirst());
@@ -183,13 +191,17 @@ public class Main {
     }
 
     //metodo potenza
-    public static void potenza(float base, int esponente) {
-        float risultato = 1;
-        for (int i = 0; i < esponente; i++) {
-            risultato = base * risultato;
+    public static double potenza(double base, double esponente) {
+        double risultato = 1;
+        if(esponente != 0){
+            for (int i = 0; i < esponente; i++) {
+                risultato = base * risultato;
+            }
         }
-        System.out.println(base + " elevato " + esponente + " = " + risultato);
+        return risultato;
     }
+
+
 
     //metodo controllo pari o dispari
     public static void pariDispari(double numero) {
